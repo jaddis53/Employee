@@ -45,26 +45,27 @@ module.exports=(sequelize,DataTypes)=>{
             },
         },
         salary:{
-            type:DataTypes.DECIMAL(7,4),
+            type:DataTypes.DECIMAL(12,2),
             allowNull:false,
             validate:{
                 notEmpty:true
             },
         },
         employment_date:{
-            type:DataTypes.DATE,
-            // allowNull:false,
+            type:DataTypes.DATEONLY,
+             allowNull:false,
             validate:{
                 notEmpty:true,
+                
         },
     },
-        course:{
+        course:[{
             type:DataTypes.STRING,
             allowNull:false,
             validate:{
                 notEmpty:true,
             },
-        },
+        }],
         registration_number:{
             type:DataTypes.INTEGER,
             allowNull:false,

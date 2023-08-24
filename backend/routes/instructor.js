@@ -6,7 +6,8 @@ const {instructor}=require('../models')
 
 router.get('/', (req,res)=>{
     instructor.findAll()
-    .then((instructors)=>{res.send(instructors)
+    .then((instructors)=>{res.json(instructors)
+       
     console.log(instructors)})
     .catch((err)=>{
         if(err){
@@ -14,7 +15,10 @@ router.get('/', (req,res)=>{
 
         } 
     }); 
+   
+
 })
+
 router.post('/',(req,res)=>{
     instructor.create({
         employee_type:req.body.employeeType,
@@ -24,22 +28,10 @@ router.post('/',(req,res)=>{
         email:req.body.email,
         phone:req.body.phone,
         salary:req.body.salary,
-        date:req.body.date,
+        employment_date:req.body.date,
         course:req.body.course,
         registration_number:req.body.regNum,
         
-///try
-        // employee_type:'Admin',
-        // first_name:'Kunta',
-        // middle_name:'G.',
-        // last_name:'Kunte',
-        // email:'jayaddis@gmail.com',
-        // phone: '098478692',
-        // salary:40320,
-        // date:'09-09-2023',
-        // course:'Graphic Design',
-        // registration_number:890
-
     })
     .then(console.log(req.body)
         )
@@ -49,15 +41,18 @@ router.post('/',(req,res)=>{
         }})
         res.send('insert');
 });
-// router.put(
-//     instructor.update('/',
-//     (req,res)=>{
-//         res.send('update')
+router.put('/',(req,res)=>{
+    instructor.update({where:{id:10}})
+    .then( res.send('update'))
+    .catch(err=>{
+        if(err){console.log(err)}
+    })
+       
 
-//     }
+    }
 
-//     )
-// )
+    )
+
 router.delete('/',(req,res)=>{
     instructor.destroy(
        {

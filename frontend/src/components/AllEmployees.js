@@ -1,34 +1,39 @@
-import {data} from '../data.js';
+// import {data} from '../data.js';
 import {useState,useEffect} from 'react';
+import axios from 'axios'
 
 export const AllEmployees=()=>{
     
    
-   const [allEmployees,setAllEmployees]=useState({});
+//    const [allEmployees,setAllEmployees]=useState({});
    const [search,setSearch]=useState("");
-//    const [data,setData]=useState('')
+   const [data,setData]=useState([ ]);
+   const [error,setError]=useState({})
 
-//    useEffect(()=>{ 
-//     const fetchData=async() =>{
-//         const result=await fetch('http://localhost:8081/instructor')
-//         const jsonResult=result.json()
-//         setData(jsonResult)
-//     }
-//    fetchData()
+   useEffect(()=>{ 
+    getInstructor();
 
-//    },[])
+   },[])
+   
+async function getInstructor(){
+    await axios.get('http://localhost:8081/instructor')
+    .then((response)=>{setData(response.data)})
+    .catch((err)=>{
+        if(err){console.log(err)}
+    })
+
+}
   
   
-   allEmployees.search=""
-   const handleChange=(e)=>{
-   const {name,value}=e.target;
-   setAllEmployees((prev)=>{
-    return {
-        ...prev,
-        [name]:value
-    } 
-   })}
-   console.log(allEmployees.search)
+//    const handleChange=(e)=>{
+//    const {name,value}=e.target;
+//    setAllEmployees((prev)=>{
+//     return {
+//         ...prev,
+//         [name]:value
+//     } 
+//    })}
+   console.log(search)
 
     return(
         <section>
@@ -59,11 +64,11 @@ export const AllEmployees=()=>{
 
                         })
                         .map((item)=>(
-                            <tr key={item.id}>
-                                <td>{item.id}</td>
-                                <td>{item.first_name}  {item.last_name}</td>
+                            <tr key={item.first_name}>
+                                <td>{item.salary}</td>
+                                <td>{item.first_name}  {item.middle_name} {item.last_name}</td>
                                 <td>{item.email}</td>
-                                <td>{item.gender}</td>
+                                <td>{item.employee_type}</td>
                                 
                             </tr>
                         ))}
